@@ -1,6 +1,6 @@
 export default function Info() {
     return (
-        <div className="my-8 mx-12 text-blue-900 flex flex-col h-full">
+        <div className="my-8 mx-12 text-blue-900 flex flex-col">
             <div className="mb-2 text-3xl font-extrabold">
                 Personal info
             </div>
@@ -21,9 +21,6 @@ export default function Info() {
                     <input type="text" placeholder="e.g +1 234 567 890" className="mt-1 border focus:outline-none focus:border-purple-900 p-3 rounded-lg" />
                 </div>
             </form>
-            <div className="flex justify-end items-end h-40">
-                <button className="py-2 px-4 rounded-lg bg-blue-900 text-white">Next Step</button>
-            </div>
         </div>
     )
 }
