@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [plan, setPlan] = useState<number | null>(null)
 
   const selectionData = [
     { step: 1, title: "YOUR INFO" },
@@ -15,9 +16,13 @@ function App() {
     { step: 4, title: "SUMMARY" },
   ]
 
+  const getPlan = (newPlan: number) => {
+    setPlan(newPlan)
+  }
+
   const sections = [
     () => <Info />,
-    () => <Plans />,
+    () => <Plans plan={getPlan} />,
     () => <Addons />,
     () => <Summary />
   ]
