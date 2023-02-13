@@ -3,9 +3,10 @@ import { useState } from 'react';
 
 interface plan {
     plan: (newPlan: number) => void;
+    monthly: (month: boolean) => void;
 }
 
-export default function Plans({ plan }: plan) {
+export default function Plans({ plan, monthly }: plan) {
     const [highlightedPlan, setHighlightedPlan] = useState<number | null>(null)
     const [isMonthly, setIsMonthly] = useState(true);
 
@@ -17,9 +18,14 @@ export default function Plans({ plan }: plan) {
         { img: "C", type: "Pro", price: 15, bg: "bg-blue-800", mr: "" }
     ]
 
-    const handleClick = (index: number) => {
+    const planClick = (index: number) => {
         plan(index);
         setHighlightedPlan(index);
+    }
+
+    const monthlyClick = () => {
+        setIsMonthly(!isMonthly)
+        monthly(!isMonthly)
     }
 
     return (
@@ -32,17 +38,17 @@ export default function Plans({ plan }: plan) {
             </div>
             <div className="flex flex-row">
                 {planData.map((val, index) => (
-                    <div key={index} className={`text-blue-900 p-3 border rounded-lg w-1/3 ${isMonthly ? "h-36" : "h-40"} ${val.mr} hover:border-purple-900 ${highlightedPlan === index ? "bg-blue-50 border-purple-900" : ""}`} onClick={() => { handleClick(index) }}>
-                        <Plan img={val.img} type={val.type} price={isMonthly ? val.price : val.price * 10} bg={val.bg} optText={isMonthly ? "" : optText} />
+                    <div key={index} className={`text-blue-900 p-3 border rounded-lg w-1/3 ${isMonthly ? "h-36" : "h-40"} ${val.mr} hover:border-purple-900 ${highlightedPlan === index ? "bg-blue-50 border-purple-900" : ""}`} onClick={() => { planClick(index) }}>
+                        <Plan img={val.img} type={val.type} price={isMonthly ? (`$${val.price}/mo`) : (`$${val.price * 10}/yr`)} bg={val.bg} optText={isMonthly ? "" : optText} />
                     </div>
                 ))}
             </div>
             <div className="bg-blue-50 p-3 rounded-md mt-5 flex justify-center">
-                <h4>Monthly</h4>
-                <button className={`bg-blue-900 mx-4 rounded-full text-white px-5 ${isMonthly ? "" : "rotate-180"} hover:bg-blue-700 transition-all flex`} onClick={() => { setIsMonthly(!isMonthly) }}>
+                <h4 className={`${isMonthly ? "font-bold" : "text-gray-400"}`}>Monthly</h4>
+                <button className={`bg-blue-900 mx-4 rounded-full text-white px-5 ${isMonthly ? "" : "rotate-180"} hover:bg-blue-700 transition-all flex`} onClick={monthlyClick}>
                     <p className="-translate-x-4">🡸</p>
                 </button>
-                <h4>Yearly</h4>
+                <h4 className={`${isMonthly ? "text-gray-400" : "font-bold"}`}>Yearly</h4>
             </div>
         </div>
     )

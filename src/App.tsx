@@ -3,11 +3,12 @@ import Plans from './components/Plans';
 import Addons from './components/Addons';
 import Summary from './components/Summary';
 import Selection from './components/Selection'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [plan, setPlan] = useState<number | null>(null)
+  const [monthly, setMonthly] = useState<boolean | null>(null);
 
   const selectionData = [
     { step: 1, title: "YOUR INFO" },
@@ -20,10 +21,14 @@ function App() {
     setPlan(newPlan)
   }
 
+  const getMonthly = (month: boolean) => {
+    setMonthly(month)
+  }
+
   const sections = [
     () => <Info />,
-    () => <Plans plan={getPlan} />,
-    () => <Addons />,
+    () => <Plans plan={getPlan} monthly={getMonthly} />,
+    () => <Addons yearly={monthly} />,
     () => <Summary />
   ]
 

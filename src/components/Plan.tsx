@@ -3,7 +3,7 @@ import { useState } from "react";
 interface planProps {
     img: string;
     type: string;
-    price: number;
+    price: number | string;
     bg: string;
     optText: string;
 }
@@ -19,7 +19,7 @@ export default function Plan({ img, type, price, bg, optText }: planProps) {
                     {type}
                 </h4>
                 <h6 className="text-gray-400">
-                    ${price}/mo
+                    {price}
                 </h6>
                 <h6 className="">
                     {optText}
